@@ -1,0 +1,145 @@
+#Beauty and the Beast
+
+def instructions():
+    print()
+    print()
+    print()
+    print()
+    print('Welcome to The Beauty and the Beast Adventure Game!\n')
+    print('You will embark on an adventure collecting objects from the film.')
+    print('Beware confronting the Beast without all 6 objects or he will imprison you forever.')
+    print()
+    print('Belle enters a castle searching for Papa. The castle is dark and gritty.')
+
+def player_status(current_room, objects, rooms):
+    print('You are now in: {}, Characters collected: {}'.format(current_room, objects))
+
+def main():
+
+    rooms = {
+        'The Main Foyer': {'North': 'The Ballroom', 'West': 'The West Wing', 'East': 'The East Wing', 'South': 'The Minor Dining Hall'},
+        'The Ballroom': {'South': 'The Main Foyer', 'Object': 'The Beast'},
+        'The West Wing': {'North': 'The Prison Tower', 'East': 'The Main Foyer', 'Object': 'Enchanted Rose'},
+        'The Prison Tower': {'South': 'The West Wing', 'Object': 'Belles Papa'},
+        'The East Wing': {'North': 'Belles Room', 'West': 'The Main Foyer', 'Object': 'Cogsworth'},
+        'Belles Room': {'South': 'The East Wing', 'Object': 'The Wardrobe'},
+        'The Minor Dining Hall': {'North': 'The Main Foyer', 'East': 'The Major Dining Hall', 'Object': 'Lumiere'},
+        'The Major Dining Hall': {'West': 'The Minor Dining Hall', 'Object': 'Chip'}
+        }
+            
+    current_room = 'The Main Foyer'
+    objects = []
+    
+    instructions()
+    print()
+    
+    while True:
+        player_status(current_room, objects, rooms)
+        print()
+        print('Enter North, South, East or West:')
+        new_room = input()
+        print()
+        if new_room in rooms[current_room]:
+            current_room = rooms[current_room][new_room]
+            if current_room == 'The Ballroom':
+                if len(objects) <= 5:
+                    print('The Beast has imprisoned you.\nGameover!')
+                    print()
+                    user_input = input('Exit Game? Yes or No?\n')
+                    if user_input == 'Yes':
+                        print('Closing game.')
+                        break
+                    elif user_input == 'No':
+                        main()
+                elif len(objects) == 6:
+                    print('You dance with the beast as Lumiere, Cogsworth, Chip, The Wardrobe, and the rest of the gang all watch as you fall in love. \nThe spell is lifted and The Beast turns into human.')
+                    user_input = input('Exit Game? Yes or No?\n')
+                    if user_input == 'No':
+                        main()
+                    elif user_input == 'Yes':
+                        print('Closing game.')
+                        break
+            elif current_room == 'The West Wing':
+                print('The Beast warned against entering the West Wing.\n')
+                if 'Object' in rooms[current_room]:
+                    print('Pick up Enchanted Rose? Enter Yes or No.\n')
+                    yes_no = input('\n')
+                    if yes_no == 'Yes':
+                        objects.append([rooms[current_room]['Object']])
+                        del rooms[current_room]['Object']
+                    elif yes_no == 'No':
+                        continue
+                    else:
+                        print('Error\n')
+                        continue
+            elif current_room == 'The Prison Tower':
+                print('The Prison Tower where Papa was imprisoned.\n')
+                if 'Object' in rooms[current_room]:
+                    print('Pick up Belles Papa? Enter Yes or No.\n')
+                    yes_no = input()
+                    if yes_no == 'Yes':
+                        objects.append([rooms[current_room]['Object']])
+                        del rooms[current_room]['Object']
+                    elif yes_no == 'No':
+                        continue
+                    else:
+                        print('Error\n')
+                        continue
+            elif current_room == 'The East Wing':
+                print('The East Wing is dark and creepy.\n')
+                if 'Object' in rooms[current_room]:
+                    print('Pick up Cogsworth? Enter Yes or No.\n')
+                    yes_no = input()
+                    if yes_no == 'Yes':
+                        objects.append([rooms[current_room]['Object']])
+                        del rooms[current_room]['Object']
+                    elif yes_no == 'No':
+                        continue
+                    else:
+                        print('Error\n')
+                        continue
+            elif current_room == 'Belles Room':
+                print('Belles Room is where she was sent to after disobeying The Beast.\n')
+                if 'Object' in rooms[current_room]:
+                    print('Pick up The Wardrobe? Enter Yes or No.\n')
+                    yes_no = input()
+                    if yes_no == 'Yes':
+                        objects.append([rooms[current_room]['Object']])
+                        del rooms[current_room]['Object']
+                    elif yes_no == 'No':
+                        continue
+                    else:
+                        print('Error\n')
+                        continue
+            elif current_room == 'The Minor Dining Hall':
+                print('Lumiere sings Be our guest! Be our guest! Be our guest!\n')
+                if 'Object' in rooms[current_room]:
+                    print('Pick up Lumiere? Enter Yes or No.')
+                    yes_no = input('\n')
+                    if yes_no == 'Yes':
+                        objects.append([rooms[current_room]['Object']])
+                        del rooms[current_room]['Object']
+                    elif yes_no == 'No':
+                        continue
+                    else:
+                        print('Error\n')
+                        continue
+            elif current_room == 'The Major Dining Hall':
+                print('Mrs. Potts and Chip!\n')
+                if 'Object' in rooms[current_room]:
+                    print('Pick up Chip? Enter Yes or No.\n')
+                    yes_no = input()
+                    if yes_no == 'Yes':
+                        objects.append([rooms[current_room]['Object']])
+                        del rooms[current_room]['Object']
+                    elif yes_no == 'No':
+                        continue
+                    else:
+                        print('Error\n')
+                        continue
+        else:
+            print('Invalid entry')
+            print('There is no door there\n')
+
+main()
+
